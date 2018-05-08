@@ -2,7 +2,6 @@
 
 namespace app;
 
-use app\logic\Alc as alcLogic;
 
 /**
  * Class Alc
@@ -30,11 +29,12 @@ class Alc extends Base
             return false;
         }
         # 进行rbac鉴权
-        if ($this->session->get('user_id') > 0) {
+        if ($dispatcher->session->get('user_id') > 0) {
             # 登录即可访问
             return true;
         }
-        $dispatcher->connect->send_error('没有权限!!', [], 401);
+
+        $dispatcher->connect->send_error('没有权限!!', [$dispatcher->session->get('user_id')], 401);
         return false;
     }
 
