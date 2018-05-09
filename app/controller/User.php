@@ -12,6 +12,9 @@ use app\logic\Article;
  */
 class User extends Controller
 {
+    /**
+     * 草稿
+     */
     public function manuscript()
     {
         $type = $this->getData('type');
@@ -35,6 +38,5 @@ class User extends Controller
         $re = $server->save_article($this->user_id, $id, $content);
         $this->connect->send_succee($re);
     }
-
 
 }
