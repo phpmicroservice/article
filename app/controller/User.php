@@ -27,28 +27,5 @@ class User extends Controller
         }
     }
 
-    /**
-     * 保存草稿，文章
-     */
-    public function save_article()
-    {
-        $id = $this->getData('id');
-        $content = $this->getData('content');
-        $server = new \app\logic\User();
-        $re = $server->save_article($this->user_id, $id, $content);
-        $this->send($re);
-    }
-
-    /**
-     *
-     */
-    public function info_article()
-    {
-        $id = $this->getData('id');
-        $server = new Article();
-        $re = $server->info_article($this->user_id, $id);
-        $this->connect->send_succee($re);
-    }
-
 
 }
