@@ -4,6 +4,7 @@ namespace app\logic;
 
 use app\Base;
 use app\model\article;
+use app\validation\UserSaveArticle;
 use pms\Output;
 
 class User extends Base
@@ -80,4 +81,39 @@ class User extends Base
         return false;
 
     }
+
+    /**
+     * 保存文章草稿信息
+     * @param $user_id
+     * @param $id
+     * @param $content
+     */
+    public function save_article($user_id, $id, $content)
+    {
+        $va = new UserSaveArticle();
+        $data = [
+            'user_id' => $user_id,
+            'id' => $id,
+            'content' => $content
+        ];
+        $ft = new \app\filterTool\UserSaveArticle();
+        $ft->filter($data);
+        if (!$va->validate($data)) {
+            return $va->getMessages();
+        }
+        $model = article::findFirst([
+            'id=:id: and user_id = :user_id:',
+            'bind' => [
+                'user_id' => $data['user_id'],
+                'id' => $data['id']
+            ]
+        ]);
+        $model->content = $data['content'];
+        if (!$model->save()) {
+            \output($model->getMessages(), '113');
+            return 'save_error';
+        }
+        return true;
+    }
+
 }
