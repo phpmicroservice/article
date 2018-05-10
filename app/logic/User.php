@@ -46,8 +46,10 @@ class User extends Base
                     'attachment' => $re['d'],
                     'is_del' => 0,
                     'type' => $type,
-                    'user_id' => $user_id
-                ]);
+                        'user_id' => $user_id,
+                        'server_name' => 'null'
+                    ]
+                );
 
                 # 保存信息
                 if (!$model->save()) {

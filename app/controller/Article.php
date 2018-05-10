@@ -28,8 +28,9 @@ class Article extends Controller
     public function info_article()
     {
         $id = $this->getData('id');
-        $server = new Article();
-        $re = $server->info_article($this->user_id, $id);
+        $type = $this->getData('type');
+        $server = new \app\logic\Article();
+        $re = $server->info_article($id, $type);
         $this->connect->send_succee($re);
     }
 
