@@ -8,8 +8,7 @@ use app\Controller;
 
 class Article extends Controller
 {
-
-
+    
     /**
      * 保存草稿，文章
      */

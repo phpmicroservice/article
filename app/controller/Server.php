@@ -16,9 +16,26 @@ class Server extends Controller
     {
         $id = $this->getData('id');
         $type = $this->getData('type');
+        $user_id = $this->getData('user_id');
         $server_name = $this->connect->f;
         $Logic = new \app\logic\Article();
-        $re = $Logic->correlation($id, $type, $server_name);
+        $re = $Logic->correlation($user_id, $id, $type, $server_name);
+        $this->send($re);
+    }
+
+
+    /**
+     * 验证
+     */
+    public function validation()
+    {
+        $id = $this->getData('id');
+        $type = $this->getData('type');
+        $user_id = $this->getData('user_id');
+        $server_name = $this->connect->f;
+        $Logic = new \app\logic\Article();
+        output([$user_id, $id, $type, $server_name], '37');
+        $re = $Logic->validation($user_id, $id, $type, $server_name);
         $this->send($re);
     }
 

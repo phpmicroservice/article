@@ -9,19 +9,47 @@ use app\Base;
 class Article extends Base
 {
     /**
+     * 验证是否可以关联
+     * @param $user_id
+     * @param $id
+     * @param $type
+     * @param $server_name
+     * @return bool
+     */
+    public function validation($user_id, $id, $type, $server_name)
+    {
+        $model = \app\model\article::findFirst([
+            "id =:id: and type =:type: and server_name =:server_name: and user_id=:user_id: ",
+            'bind' => [
+                'id' => $id,
+                'type' => $type,
+                'server_name' => $server_name,
+                'user_id' => $user_id
+            ]
+        ]);
+        if ($model instanceof \app\model\article) {
+            # 正确的
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * 对文章进行关联
      * @param $id
      * @param $type
      * @param $server_name
      */
-    public function correlation($id, $type, $server_name)
+    public function correlation($user_id, $id, $type, $server_name)
     {
         $model = \app\model\article::findFirst([
-            "id =:id: and type =:type: and server_name =:server_name: ",
+            "id =:id: and type =:type: and server_name =:server_name: and user_id=:user_id: ",
             'bind' => [
                 'id' => $id,
                 'type' => $type,
-                'server_name' => 'null'
+                'server_name' => $server_name,
+                'user_id' => $user_id
             ]
         ]);
         if ($model instanceof \app\model\article) {
@@ -29,7 +57,7 @@ class Article extends Base
         } else {
             return false;
         }
-        $model->server_name = $server_name;
+        $model->status = 1;
         if (!$model->save()) {
             return false;
         }
