@@ -15,13 +15,14 @@ class User extends Base
      * @param $user_id
      * @param $type
      */
-    public function manuscript($user_id, $type)
+    public function manuscript($user_id, $type, $sn)
     {
         $model = article::findFirst([
-            'user_id = :user_id: and status =0 and type =:type:',
+            'user_id = :user_id: and status =0 and type =:type: and server_name =:server_name:',
             'bind' => [
                 'user_id' => $user_id,
-                'type' => $type
+                'type' => $type,
+                'server_name' => $sn
             ]
         ]);
         if ($model instanceof article) {
@@ -39,15 +40,15 @@ class User extends Base
                 # 符合返回结果
                 $model = new article();
                 $model->setData([
-                    'content' => base64_encode('.'),
-                    'create_time' => time(),
-                    'update_time' => time(),
-                    'status' => 0,
-                    'attachment' => $re['d'],
-                    'is_del' => 0,
-                    'type' => $type,
+                        'content' => base64_encode('.'),
+                        'create_time' => time(),
+                        'update_time' => time(),
+                        'status' => 0,
+                        'attachment' => $re['d'],
+                        'is_del' => 0,
+                        'type' => $type,
                         'user_id' => $user_id,
-                        'server_name' => 'null'
+                        'server_name' => $sn
                     ]
                 );
 
