@@ -10,7 +10,9 @@ class UserSaveArticle extends \pms\FilterTool\FilterTool
     {
         $this->_Filter->add('content', new Content());
         $this->_Rules = [
-            ['content' => 'content']
+            ['content', 'content'],
+            ['id', 'int'],
+            ['user_id', 'int']
         ];
     }
 

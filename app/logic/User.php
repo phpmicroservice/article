@@ -92,14 +92,18 @@ class User extends Base
      */
     public function save_article($user_id, $id, $content)
     {
-        $va = new UserSaveArticle();
+
         $data = [
             'user_id' => $user_id,
             'id' => $id,
             'content' => $content
         ];
+
+
         $ft = new \app\filterTool\UserSaveArticle();
         $ft->filter($data);
+        output($data, 22);
+        $va = new UserSaveArticle();
         if (!$va->validate($data)) {
             return $va->getMessages();
         }
