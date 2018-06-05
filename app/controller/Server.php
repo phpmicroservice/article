@@ -25,7 +25,7 @@ class Server extends Controller
 
 
     /**
-     * 验证
+     * 验证,是否存在可关联文章
      */
     public function validation()
     {
