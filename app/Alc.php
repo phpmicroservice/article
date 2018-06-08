@@ -2,7 +2,6 @@
 
 namespace app;
 
-
 /**
  * Class Alc
  * @package app
@@ -10,6 +9,9 @@ namespace app;
 class Alc extends Base
 {
     public $user_id;
+    public $serverTask = [
+        'demo', 'server', 'index'
+    ];
 
     /**
      *
@@ -20,7 +22,7 @@ class Alc extends Base
      */
     public function beforeDispatch(\Phalcon\Events\Event $Event, \pms\Dispatcher $dispatcher)
     {
-        if ($dispatcher->getTaskName() == 'server' || $dispatcher->getTaskName() == 'index') {
+        if (in_array($dispatcher->getTaskName(), $this->serverTask)) {
             # 进行服务间鉴权
             return true;
         }
