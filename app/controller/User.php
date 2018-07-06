@@ -20,7 +20,6 @@ class User extends Controller
         $type = $this->getData('type');
         $sn = $this->getData('sn');
         $server = new \app\logic\User();
-
         $info = $server->manuscript($this->user_id, $type, $sn);
         if (is_array($info)) {
             $this->connect->send_succee($info);

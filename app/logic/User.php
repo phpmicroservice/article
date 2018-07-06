@@ -40,7 +40,7 @@ class User extends Base
                 # 符合返回结果
                 $model = new article();
                 $model->setData([
-                        'content' => base64_encode('.'),
+                        'content' => base64_encode(' '),
                         'create_time' => time(),
                         'update_time' => time(),
                         'status' => 0,
