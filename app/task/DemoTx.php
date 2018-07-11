@@ -6,7 +6,7 @@ use app\model\tmdemo;
 use pms\Task\Task;
 use pms\Task\TaskInterface;
 
-class DemoTx extends \pms\Task\TxTask implements TaskInterface
+class DemoTx extends \pms\Task\TxTask
 {
 
     public function end()
