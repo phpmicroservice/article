@@ -39,9 +39,14 @@ class Server extends Controller
         $this->send($re);
     }
 
+
     public function info()
     {
-
+        $id = $this->getData('id');
+        $server_name = $this->connect->f;
+        $Logic = new \app\logic\Article();
+        $re = $Logic->infos($id, $server_name);
+        $this->send($re);
     }
 
 

@@ -86,4 +86,27 @@ class Article extends Base
         return false;
     }
 
+
+    /**
+     * 文章信息
+     * @param $id
+     * @param $type
+     * @param $sever_name
+     */
+    public function infos($id, $server_name)
+    {
+        $model = \app\model\article::findFirst([
+            'id = :id: and server_name =:server_name:',
+            'bind' => [
+                'id' => $id,
+                'server_name' => $server_name
+            ]
+        ]);
+        if ($model instanceof \app\model\article) {
+            return $model->toArray();
+        }
+        return false;
+    }
+
+
 }
