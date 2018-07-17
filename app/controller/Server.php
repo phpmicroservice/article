@@ -39,5 +39,10 @@ class Server extends Controller
         $this->send($re);
     }
 
+    public function info()
+    {
+
+    }
+
 
 }
