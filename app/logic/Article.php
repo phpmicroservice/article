@@ -29,10 +29,12 @@ class Article extends Base
         ]);
         if ($model instanceof \app\model\article) {
             # 正确的
-            return true;
-        } else {
-            return false;
+            if ($model->status == 0) {
+                return true;
+            }
         }
+        return false;
+
     }
 
     /**
