@@ -1,12 +1,15 @@
 <?php
 
-
 namespace app\controller;
-
 
 use app\Controller;
 
-class Article extends Controller
+/**
+ * 临时鉴权的文章操作
+ * Class Articleauth
+ * @package app\controller
+ */
+class Articleauth extends Controller
 {
     
     /**
@@ -16,8 +19,9 @@ class Article extends Controller
     {
         $id = $this->getData('id');
         $content = $this->getData('content');
+        $auth = $this->getData('auth');
         $server = new \app\logic\User();
-        $re = $server->save_article($this->user_id, $id, $content);
+        $re = $server->save_article_auth($this->user_id, $id, $content,$auth);
         $this->send($re);
     }
 

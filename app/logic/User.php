@@ -5,10 +5,45 @@ namespace app\logic;
 use app\Base;
 use app\model\article;
 use app\validation\UserSaveArticle;
+use app\validator\Savearticleauth;
 use pms\Output;
+use pms\Validation;
+use pms\Validation\Validator;
 
 class User extends Base
 {
+
+    /**
+     * 临时鉴权的文章修改
+     * @param $user_id
+     * @param $id
+     * @param $content
+     */
+    public function save_article_auth($user_id, $id, $content,$auth)
+    {
+        $data=[
+            'user_id'=>$user_id,
+            'id'=>$id,
+            'content'=>$content,
+            'auth'=>$auth
+        ];
+        $va=new Validation();
+        $va->add_Validator('user_id',[
+            'name'=>Savearticleauth::class,
+            'message'=>'Savearticleauth'
+        ]);
+        if(!$va->validate($data)){
+            return $va->getErrorMessages();
+        }
+        $model = article::findFirst($data['id']);
+        $model->content = $data['content'];
+        if (!$model->save()) {
+            \output($model->getMessages(), '113');
+            return 'save_error';
+        }
+        return true;
+
+    }
 
     /**
      * 获取草稿
