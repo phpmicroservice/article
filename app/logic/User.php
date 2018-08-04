@@ -52,6 +52,8 @@ class User extends Base
      */
     public function manuscript($user_id, $type, $sn)
     {
+        $type=strtolower($type);
+        $sn=strtolower($sn);
         $model = article::findFirst([
             'user_id = :user_id: and status =0 and type =:type: and server_name =:server_name:',
             'bind' => [
