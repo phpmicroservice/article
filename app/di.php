@@ -1,8 +1,5 @@
 <?php
 
-use Phalcon\Mvc\Url as UrlResolver;
-use Phalcon\Mvc\Model\Manager as ModelsManager;
-use Phalcon\Events\Manager;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 
 //注册自动加载
@@ -99,14 +96,14 @@ $di->setShared('sessionCache', function () use ($di) {
             "lifetime" => 172800,
         ]
     );
-    output($di['config']->cache, 'gCache');
+    \pms\output($di['config']->cache, 'gCache');
     $op = [
-        "host" => getenv('SESSION_CACHE_HOST'),
-        "port" => get_env('SESSION_CACHE_PORT', 6379),
-        "auth" => get_env('SESSION_CACHE_AUTH', ''),
-        "persistent" => get_env('SESSION_CACHE_PERSISTENT', 1),
-        'prefix' => get_env('SESSION_CACHE_PREFIX', 'session_'),
-        "index" => getenv('SESSION_CACHE_INDEX')
+        "host" => \pms\get_env('SESSION_CACHE_HOST'),
+        "port" => \pms\get_env('SESSION_CACHE_PORT', 6379),
+        "auth" => \pms\get_env('SESSION_CACHE_AUTH', ''),
+        "persistent" => \pms\get_env('SESSION_CACHE_PERSISTENT', 1),
+        'prefix' => \pms\get_env('SESSION_CACHE_PREFIX', 'session_'),
+        "index" => \pms\get_env('SESSION_CACHE_INDEX', '1')
     ];
     if (empty($op['auth'])) {
         unset($op['auth']);
@@ -190,7 +187,7 @@ $di["db"] = function () use ($di) {
     // Listen all the database events
     $eventsManager->attach(
         "db:beforeQuery",
-        function ($event, $connection) use ($logger) {
+        function ($event, \Phalcon\Db\AdapterInterface $connection) use ($logger) {
             $logger->log(
                 $connection->getSQLStatement(),
                 \Phalcon\Logger::INFO

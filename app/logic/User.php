@@ -8,7 +8,6 @@ use app\validation\UserSaveArticle;
 use app\validator\Savearticleauth;
 use pms\Output;
 use pms\Validation;
-use pms\Validation\Validator;
 
 class User extends Base
 {
@@ -38,7 +37,7 @@ class User extends Base
         $model = article::findFirst($data['id']);
         $model->content = $data['content'];
         if (!$model->save()) {
-            \output($model->getMessages(), '113');
+            \pms\output($model->getMessages(), '113');
             return 'save_error';
         }
         return true;
@@ -100,7 +99,7 @@ class User extends Base
                     return 'set_attachment';
                 }
             } else {
-                output($re, 55);
+                \pms\output($re, 55);
                 return 'request_error';
             }
         }
@@ -140,7 +139,7 @@ class User extends Base
 
         $ft = new \app\filterTool\UserSaveArticle();
         $ft->filter($data);
-        output($data, 22);
+        \pms\output($data, 22);
         $va = new UserSaveArticle();
         if (!$va->validate($data)) {
             return $va->getMessages();
