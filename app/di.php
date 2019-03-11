@@ -151,7 +151,7 @@ $di->set(
 
 $di->set(
     "proxyCS", function () {
-    $client = new \pms\bear\ClientSync(get_env('PROXY_HOST'), get_env('PROXY_PROT'), 10);
+    $client = new \pms\bear\ClientSync(\pms\get_env('PROXY_HOST'), \pms\get_env('PROXY_PROT'), 10);
     return $client;
 
 });
